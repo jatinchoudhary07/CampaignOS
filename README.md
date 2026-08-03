@@ -28,28 +28,18 @@ Describe a campaign brief (e.g. *"Grand Opening of Royal Gold Jewellery"*), sele
 
 The diagram below demonstrates how CampaignOS transforms user inputs into a final rendered commercial video:
 
-```mermaid
-flowchart TD
-    A[User Brief & Config] --> B[CampaignOS Studio Interface]
-    B --> C[VideoConfig State Engine]
-
-    subgraph AI_Pipeline [AI Generation Pipeline]
-        C --> D[Google Gemini 2.5 Flash]
-        D -->|Script & Scene Prompts| E[Scene Storyboard]
-        E --> F[Google Veo 3.1 Video Engine]
-        E --> G[Gemini TTS Voiceover]
-        F -->|Render| H[High-Res Video Scenes]
-        G -->|Synthesize| I[Voice Narration Track]
-    end
-
-    subgraph Client_Processing [Client-Side Video Processing]
-        H --> J[In-Browser FFmpeg.wasm Engine]
-        I --> J
-        C -->|Logo & Background Music| J
-        J -->|Stitch, Mix & Burn Subtitles| K[Final Rendered Commercial Video]
-    end
-
-    K --> L[Download MP4 Campaign Video]
+```text
+                     ┌─────────────────────────────────────────┐
+                     │    CampaignOS Platform Architecture      │
+                     └────────────────────┬────────────────────┘
+                                          │
+          ┌───────────────────────────────┼───────────────────────────────┐
+          ▼                               ▼                               ▼
+┌───────────────────┐           ┌───────────────────┐           ┌───────────────────┐
+│ 🤖 SCRIPT &       │           │ 🎥 VEO 3.1 &      │           │ ⚡ IN-BROWSER     │
+│    STORYBOARD     │           │    TTS VOICE      │           │    VIDEO ASSEMBLY │
+│ Gemini 2.5 Flash  │           │  Scene & Narration│           │   FFmpeg.wasm     │
+└───────────────────┘           └───────────────────┘           └───────────────────┘
 ```
 
 ---
