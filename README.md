@@ -29,27 +29,27 @@ Describe a campaign brief (e.g. *"Grand Opening of Royal Gold Jewellery"*), sele
 The diagram below demonstrates how CampaignOS transforms user inputs into a final rendered commercial video:
 
 ```mermaid
-graph TD
-    A[👤 User Campaign Brief & Config] --> B[🖥️ CampaignOS Studio Interface]
-    B --> C[⚙️ VideoConfig Engine]
-    
-    subgraph AI Generation Pipeline
-        C --> D[🤖 Google Gemini 2.5 Flash]
-        D -->|Generate Script & Prompts| E[📝 Scene Storyboard]
-        E --> F[🎥 Google Veo 3.1 Video Engine]
-        E --> G[🎙️ Gemini TTS Voiceover Engine]
-        F -->|Render| H[🎬 High-Res Video Scenes]
-        G -->|Synthesize| I[🔊 Voice Narration Track]
-    },
+flowchart TD
+    A[User Brief & Config] --> B[CampaignOS Studio Interface]
+    B --> C[VideoConfig State Engine]
 
-    subgraph Client-Side Video Processing
-        H --> J[⚡ In-Browser FFmpeg.wasm Engine]
-        I --> J
-        C -->|Brand Logo & Music Tracks| J
-        J -->|Stitch, Mix & Burn Subtitles| K[📦 Final Rendered Commercial MP4]
+    subgraph AI_Pipeline [AI Generation Pipeline]
+        C --> D[Google Gemini 2.5 Flash]
+        D -->|Script & Scene Prompts| E[Scene Storyboard]
+        E --> F[Google Veo 3.1 Video Engine]
+        E --> G[Gemini TTS Voiceover]
+        F -->|Render| H[High-Res Video Scenes]
+        G -->|Synthesize| I[Voice Narration Track]
     end
 
-    K --> L[📥 Download Ready-to-Post Campaign Video]
+    subgraph Client_Processing [Client-Side Video Processing]
+        H --> J[In-Browser FFmpeg.wasm Engine]
+        I --> J
+        C -->|Logo & Background Music| J
+        J -->|Stitch, Mix & Burn Subtitles| K[Final Rendered Commercial Video]
+    end
+
+    K --> L[Download MP4 Campaign Video]
 ```
 
 ---
