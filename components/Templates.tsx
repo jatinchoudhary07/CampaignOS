@@ -1,0 +1,58 @@
+import { Template } from "../types";
+
+export const VIDEO_TEMPLATES: Template[] = [
+  {
+    id: 'luxury',
+    name: 'Luxury & Gold',
+    description: 'Black & gold, silk textures, floating particles, premium jewellery feel.',
+    previewGradient: 'from-yellow-900 via-yellow-700 to-amber-900',
+    accentColor: '#D4AF37',
+    promptModifier: 'Luxury brand aesthetic, deep black and shimmering gold color scheme, floating gold dust particles, silk and velvet textures, premium product lighting, ultra-high-end feel, bokeh background.',
+    tags: ['Jewellery', 'Fashion', 'Premium'],
+  },
+  {
+    id: 'corporate',
+    name: 'Modern Corporate',
+    description: 'Professional, blue tones, glass architecture, trusted brand look.',
+    previewGradient: 'from-blue-900 via-blue-700 to-indigo-900',
+    accentColor: '#3B82F6',
+    promptModifier: 'Modern corporate aesthetic, professional office setting, glass and steel architecture, confident and authoritative atmosphere, blue and silver color palette, clean typographic overlays.',
+    tags: ['Business', 'Finance', 'SaaS'],
+  },
+  {
+    id: 'cinematic',
+    name: 'Dark Cinematic',
+    description: 'Dramatic lighting, moody atmosphere, film grain, emotional depth.',
+    previewGradient: 'from-slate-900 via-slate-800 to-zinc-900',
+    accentColor: '#94A3B8',
+    promptModifier: 'Cinematic film look, dramatic chiaroscuro lighting, moody atmosphere, anamorphic lens flares, shallow depth of field, 35mm film grain, slow motion sequences.',
+    tags: ['Automobile', 'Real Estate', 'Drama'],
+  },
+  {
+    id: 'lifestyle',
+    name: 'Vibrant Lifestyle',
+    description: 'Sunny, energetic, happy people, natural light, authentic feel.',
+    previewGradient: 'from-orange-600 via-pink-500 to-rose-600',
+    accentColor: '#F97316',
+    promptModifier: 'Vibrant lifestyle photography, natural sunlight, golden hour glow, happy authentic emotions, energetic handheld camera movement, saturated warm tones, spontaneous feel.',
+    tags: ['Restaurant', 'Fitness', 'Travel'],
+  },
+  {
+    id: 'minimalist',
+    name: 'Clean Minimal',
+    description: 'Apple-style, bright, airy, negative space, sophisticated.',
+    previewGradient: 'from-gray-100 via-white to-gray-200',
+    accentColor: '#6B7280',
+    promptModifier: 'Minimalist design, bright soft lighting, pure white background, clean product lines, high key photography, sophisticated and elegant, zen aesthetic.',
+    tags: ['Tech', 'Beauty', 'Education'],
+  },
+  {
+    id: 'cyberpunk',
+    name: 'Neon Cyberpunk',
+    description: 'Futuristic, neon lights, digital glitches, high contrast.',
+    previewGradient: 'from-purple-900 via-fuchsia-800 to-cyan-900',
+    accentColor: '#A855F7',
+    promptModifier: 'Cyberpunk aesthetic, neon blue and magenta lighting, futuristic city environment, glowing holographic effects, digital glitch art, high tech dystopian.',
+    tags: ['Gaming', 'Crypto', 'Events'],
+  },
+];
