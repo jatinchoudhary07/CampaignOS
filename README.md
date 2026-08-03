@@ -95,7 +95,7 @@ npm install
 CampaignOS requires a **Google Gemini API Key** to interact with Gemini 2.5 and Veo 3.1 models.
 - Create a `.env` file in the root directory:
   ```env
-  VITE_GEMINI_API_KEY=your_gemini_api_key_here
+  VITE_GEMINI_API_KEY=<your_gemini_api_key>
   ```
 - Alternatively, you can enter your API key directly inside the in-app Key Modal upon launching the application.
 
