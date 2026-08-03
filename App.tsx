@@ -8,6 +8,9 @@ type AppScreen = 'landing' | 'key_required' | 'studio';
 const App: React.FC = () => {
   const [screen, setScreen] = useState<AppScreen>('landing');
   const [checking, setChecking] = useState<boolean>(true);
+  const [customKey, setCustomKey] = useState<string>(
+    localStorage.getItem('user_gemini_api_key') || ''
+  );
 
   // Check for existing API key and initialize theme on mount
   useEffect(() => {
@@ -26,53 +29,28 @@ const App: React.FC = () => {
         root.classList.add('light');
       }
     }
-
-    const checkKey = async () => {
-      const win = window as any;
-      if (win.aistudio && win.aistudio.hasSelectedApiKey) {
-        const selected = await win.aistudio.hasSelectedApiKey();
-        if (selected) {
-          // Already have key — but still show landing first
-          setChecking(false);
-          return;
-        }
-      } else if (process.env.GEMINI_API_KEY || process.env.API_KEY) {
-        setChecking(false);
-        return;
-      }
-      setChecking(false);
-    };
-    checkKey();
+    setChecking(false);
   }, []);
 
-  const handleGetStarted = async () => {
+  const handleGetStarted = () => {
     const win = window as any;
+    const storedKey = localStorage.getItem('user_gemini_api_key');
+    const envKey =
+      (import.meta as any).env?.VITE_GEMINI_API_KEY ||
+      (typeof process !== 'undefined' ? (process.env?.GEMINI_API_KEY || process.env?.API_KEY) : '');
 
-    // If running in AI Studio environment, open key selector
-    if (win.aistudio && win.aistudio.hasSelectedApiKey) {
-      const selected = await win.aistudio.hasSelectedApiKey();
-      if (!selected) {
-        setScreen('key_required');
-        return;
-      }
+    if (win.__GEMINI_API_KEY__ || storedKey || envKey) {
       setScreen('studio');
       return;
     }
 
-    // If env key is available, go straight to studio
-    if (process.env.GEMINI_API_KEY || process.env.API_KEY) {
-      setScreen('studio');
-      return;
-    }
-
-    // Otherwise show key required screen
     setScreen('key_required');
   };
 
-  const handleSelectKey = async () => {
-    const win = window as any;
-    if (win.aistudio && win.aistudio.openSelectKey) {
-      await win.aistudio.openSelectKey();
+  const handleSaveCustomKey = () => {
+    if (customKey.trim()) {
+      localStorage.setItem('user_gemini_api_key', customKey.trim());
+      (window as any).__GEMINI_API_KEY__ = customKey.trim();
       setScreen('studio');
     }
   };
@@ -110,17 +88,32 @@ const App: React.FC = () => {
           </div>
 
           <h1 className="text-2xl font-bold text-white mb-2">Connect Your API Key</h1>
-          <p className="text-gray-400 text-sm mb-8 leading-relaxed">
-            CampaignOS uses Gemini Flash and Veo for video generation.
-            Connect your Google AI Studio API key to continue.
+          <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+            CampaignOS uses Gemini 2.5 Flash and Veo 3.1 for video generation.
+            Enter or update your Google AI Studio API key below.
           </p>
 
+          <div className="space-y-4 mb-6 text-left">
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-wider">
+                Google Gemini API Key
+              </label>
+              <input
+                type="text"
+                value={customKey}
+                onChange={(e) => setCustomKey(e.target.value)}
+                placeholder="Enter AI Studio API Key..."
+                className="w-full bg-[#161616] border border-gray-800 rounded-xl px-4 py-3 text-white text-xs font-mono focus:outline-none focus:border-blue-500 transition-all"
+              />
+            </div>
+          </div>
+
           <button
-            onClick={handleSelectKey}
-            className="w-full flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 py-3.5 px-6 rounded-xl font-bold transition-all active:scale-95"
+            onClick={handleSaveCustomKey}
+            className="w-full flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 py-3.5 px-6 rounded-xl font-bold transition-all active:scale-95 shadow-lg"
           >
             <Sparkles className="w-5 h-5" />
-            Connect Google AI Studio
+            Save & Open Studio
           </button>
 
           <button

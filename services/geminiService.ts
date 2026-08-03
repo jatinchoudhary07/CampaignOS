@@ -10,7 +10,13 @@ import { VIDEO_TEMPLATES } from "../components/Templates";
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const getApiKey = (): string => {
-  return (window as any).__GEMINI_API_KEY__ || process.env.API_KEY || '';
+  const win = window as any;
+  const storedKey = localStorage.getItem('user_gemini_api_key');
+  const envKey =
+    (import.meta as any).env?.VITE_GEMINI_API_KEY ||
+    (typeof process !== 'undefined' ? (process.env?.GEMINI_API_KEY || process.env?.API_KEY) : '');
+
+  return win.__GEMINI_API_KEY__ || storedKey || envKey || '';
 };
 
 // Map Square to 16:9 since Veo doesn't support 1:1
